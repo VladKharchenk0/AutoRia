@@ -3,7 +3,6 @@ package com.gmail.kharchenko55.vlad.common;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-
 import java.io.Serializable;
 
 import static javax.persistence.GenerationType.IDENTITY;

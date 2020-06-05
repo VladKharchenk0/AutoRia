@@ -5,8 +5,7 @@ import java.util.Optional;
 
 public enum UserRole {
     ROLE_ADMIN("ROLE_ADMIN"),
-    USER("USER"),
-    ROLE_NEWCOMER("ROLE_NEWCOMER");
+    ROLE_USER("ROLE_USER");
 
     private String role;
 

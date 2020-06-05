@@ -25,8 +25,7 @@
 							<td th:text="${user.email}"></td>
 							<td th:text="${user.userRole}"></td>
 							<td th:text="${user.status}"></td>
-							<td><a th:href="'Activate'">Activate</a></td>
-<!--							<td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>-->
+							<td><a th:href="@{/users/activate/{id}(id=${user.id})}">Change Status</a></td>
 						</tr>
 					</tbody>
 				</table>

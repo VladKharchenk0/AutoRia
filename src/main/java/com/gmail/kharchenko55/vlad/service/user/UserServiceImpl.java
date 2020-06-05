@@ -5,6 +5,7 @@ import com.gmail.kharchenko55.vlad.controller.userscontroller.UserRegistrationDt
 import com.gmail.kharchenko55.vlad.dao.UserRepository;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.model.user.UserRole;
+import com.gmail.kharchenko55.vlad.model.user.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,16 +29,28 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public User update(Integer id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user.getStatus().equals(UserStatus.ACTIVE)){
+            user.setStatus(UserStatus.NOT_ACTIVE);
+        }else {
+            user.setStatus(UserStatus.ACTIVE);
+        }
+        userRepository.save(user);
+        return user;
+    }
+
     public User findByEmail(String email){
         return userRepository.findByEmail(email).orElse(null);
 
     }
 
-    public User save(UserRegistrationDto registration){
+    public User register(UserRegistrationDto registration){
         User user = new User();
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
-        user.setUserRole(UserRole.ROLE_NEWCOMER);
+        user.setUserRole(UserRole.ROLE_USER);
         return userRepository.save(user);
     }
 

@@ -5,9 +5,12 @@ import com.gmail.kharchenko55.vlad.model.user.User;
 
 import java.util.List;
 
-public interface UserService{
+public interface UserService {
     List<User> getAllUsers();
+
     User findByEmail(String email);
 
-    User save(UserRegistrationDto registration);
+    User update(Integer id);
+
+    User register(UserRegistrationDto registration);
 }
