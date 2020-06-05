@@ -1,4 +1,4 @@
-<div class="topnav" id="myTopnav">
+<div class="topnav" id="myTopnav" xmlns:th="http://www.thymeleaf.org">
 	<a href="">Home</a>
 	<div class="dropdown">
 		<button class="dropbtn">Search
@@ -14,7 +14,7 @@
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
-			<a href="">Show all users</a>
+			<a th:href="@{/users/show-users}">Show all users</a>
 			<a href="">Activate user</a>
 
 		</div>

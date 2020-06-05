@@ -5,7 +5,6 @@ import com.gmail.kharchenko55.vlad.controller.userscontroller.UserRegistrationDt
 import com.gmail.kharchenko55.vlad.dao.UserRepository;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.model.user.UserRole;
-import com.gmail.kharchenko55.vlad.model.user.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
     }
 
     public User findByEmail(String email){
