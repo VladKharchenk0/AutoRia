@@ -23,16 +23,18 @@ public class UserController {
 
     @GetMapping("/show-users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String listUsers(Model model){
+    public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
+
         return "admin/show_users";
     }
 
     @RequestMapping(value = "/activate/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String changeStatus(@PathVariable(value = "id") String id, Model model){
-        User user =userService.update(Integer.parseInt(id));
+    public String changeStatus(@PathVariable(value = "id") String id, Model model) {
+        User user = userService.update(Integer.parseInt(id));
         model.addAttribute(user);
-        return "admin/status-changed";
+
+        return "admin/status_changed";
     }
 }

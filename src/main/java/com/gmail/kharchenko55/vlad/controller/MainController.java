@@ -19,7 +19,7 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login() {
         return "login";
     }
 
@@ -29,13 +29,8 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("/user")
-    public String userIndex() {
-        return "user/index";
-    }
-
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied() {
-        return "/403";
+        return "/exceptions/403";
     }
 }

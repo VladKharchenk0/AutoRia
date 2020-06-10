@@ -1,6 +1,5 @@
 package com.gmail.kharchenko55.vlad.common.security;
 
-
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.model.user.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;

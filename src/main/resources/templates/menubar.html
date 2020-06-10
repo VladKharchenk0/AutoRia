@@ -1,25 +1,15 @@
 <div class="topnav" id="myTopnav" xmlns:th="http://www.thymeleaf.org">
 	<a th:href="@{/index}">Home</a>
-	<div class="dropdown">
-		<button class="dropbtn">Search
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-content">
-			<a href="">New car</a>
-			<a href="">Used car</a>
-		</div>
-	</div>
+	<a th:href="@{/index/search}">Search Car</a>
 	<div class="dropdown">
 		<button class="dropbtn">Admin
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-content">
 			<a th:href="@{/users/show-users}">Show all users</a>
-			<a href="">Activate user</a>
-
 		</div>
 	</div>
-	<div class="dropdown"  style="float: right;">
+	<div class="dropdown" style="float: right;">
 		<button class="dropbtn">Settings
 			<i class="fa fa-caret-down"></i>
 		</button>

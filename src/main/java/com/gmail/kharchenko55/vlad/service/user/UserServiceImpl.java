@@ -1,6 +1,5 @@
 package com.gmail.kharchenko55.vlad.service.user;
 
-
 import com.gmail.kharchenko55.vlad.controller.userscontroller.UserRegistrationDto;
 import com.gmail.kharchenko55.vlad.dao.UserRepository;
 import com.gmail.kharchenko55.vlad.model.user.User;
@@ -32,27 +31,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(Integer id) {
         User user = userRepository.findById(id).orElse(null);
-        if(user.getStatus().equals(UserStatus.ACTIVE)){
+        if (user.getStatus().equals(UserStatus.ACTIVE)) {
             user.setStatus(UserStatus.NOT_ACTIVE);
-        }else {
+        } else {
             user.setStatus(UserStatus.ACTIVE);
         }
         userRepository.save(user);
+
         return user;
     }
 
-    public User findByEmail(String email){
+    public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
-
     }
 
-    public User register(UserRegistrationDto registration){
+    public User register(UserRegistrationDto registration) {
         User user = new User();
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setUserRole(UserRole.ROLE_USER);
         user.setStatus(UserStatus.NOT_ACTIVE);
+
         return userRepository.save(user);
     }
-
 }

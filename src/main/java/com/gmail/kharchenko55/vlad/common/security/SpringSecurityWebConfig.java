@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -25,7 +24,6 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
         UsersDetailsService = usersDetailsService;
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -35,7 +33,8 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/css/**",
                         "/img/**",
-                        "/webjars/**").permitAll()
+                        "/webjars/**",
+                        "/static/assets/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -49,7 +48,6 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
-        ;
     }
 
     @Bean
@@ -66,8 +64,7 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
-
 }

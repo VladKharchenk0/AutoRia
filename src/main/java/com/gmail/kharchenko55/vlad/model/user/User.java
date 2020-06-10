@@ -17,7 +17,6 @@ public class User extends BaseEntity {
     private UserStatus userStatus;
 
     public User() {
-
     }
 
     @Email
