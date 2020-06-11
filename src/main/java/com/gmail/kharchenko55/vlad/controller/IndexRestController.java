@@ -1,15 +1,17 @@
 package com.gmail.kharchenko55.vlad.controller;
 
 import com.gmail.kharchenko55.vlad.common.Util;
-import com.gmail.kharchenko55.vlad.model.car.Search;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController("/search/{carBody}/{carBrand}")
+@RestController()
 public class IndexRestController {
 
     private OkHttpClient client = new OkHttpClient();
@@ -26,11 +28,5 @@ public class IndexRestController {
         Response response = client.newCall(request).execute();
 
         return response.body().string();
-    }
-
-    @RequestMapping(method=RequestMethod.POST)
-    public String save(@RequestBody Search search) {
-        System.out.println(search.getCarBody() +" " + search.getCarBrand());
-        return "future_response";
     }
 }

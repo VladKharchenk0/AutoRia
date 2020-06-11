@@ -8,7 +8,7 @@
 	<body>
 		<div th:replace="menubar.html"></div>
 		<div>
-			<form th:object="${search}">
+			<form method="post" action="/index/search" th:object="${search}" >
 				<select name="carBody">
 					<option value="" disabled selected hidden>Select car body</option>
 					<option th:each="carBodyOpt : ${T(com.gmail.kharchenko55.vlad.model.car.CarBody).values()}"
@@ -26,11 +26,12 @@
 					        th:value="${bmwOpt.id}" th:text="${bmwOpt.name}"></option>
 				</select>
 				<button type="submit">Search
-					<!--					<a th:href="@{/search/{carBody}(carBody=${search.carBody.id})-->
-					<!--					/{carBrand}(carBrand=${search.carBrand.id})}">-->
-					<!--						</a>-->
 				</button>
 			</form>
+		</div>
+
+		<div th:if="${searchResult}">
+			<span>Резултат поиска: </span> <span th:text="${searchResult}"></span>
 		</div>
 	</body>
 </html>
