@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class Util {
-    public static String getBaseUrl() {
+    public static String getSearchUrl() {
         Properties prop = null;
         try {
             prop = readPropertiesFile();
@@ -14,7 +14,18 @@ public class Util {
             e.printStackTrace();
         }
 
-        return Objects.requireNonNull(prop).getProperty("base.url");
+        return Objects.requireNonNull(prop).getProperty("base.search.url");
+    }
+
+    public static String getInfoUrl() {
+        Properties prop = null;
+        try {
+            prop = readPropertiesFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Objects.requireNonNull(prop).getProperty("base.info.url");
     }
 
     private static Properties readPropertiesFile() throws IOException {

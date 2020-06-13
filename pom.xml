@@ -11,7 +11,7 @@
     <groupId>com.gmail.kharchenko55.vlad</groupId>
     <artifactId>auto-ria</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>auto-ria</name>
     <description>REST service for AUTO RIA</description>
 
@@ -102,6 +102,10 @@
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
 
     </dependencies>

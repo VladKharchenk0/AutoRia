@@ -20,7 +20,7 @@
 					        th:value="${carBrandOpt.id}" th:text="${carBrandOpt.name}"></option>
 				</select>
 
-				<select name="bmw">
+				<select name="carModel">
 					<option value="" disabled selected hidden>Select bmv</option>
 					<option th:each="bmwOpt : ${T(com.gmail.kharchenko55.vlad.model.car.models.BmwModels).values()}"
 					        th:value="${bmwOpt.id}" th:text="${bmwOpt.name}"></option>
@@ -30,8 +30,32 @@
 			</form>
 		</div>
 
-		<div th:if="${searchResult}">
-			<span>Резултат поиска: </span> <span th:text="${searchResult}"></span>
+		<div th:if="${cars}">
+			<div th:switch="${cars}">
+				<h2 th:case="null">No users yet!</h2>
+				<div th:case="*">
+					<h2>List of users</h2>
+					<table>
+						<thead>
+							<tr>
+								<th style="width: 150px;">mark</th>
+								<th style="width: 150px;">model</th>
+								<th style="width: 150px;">price</th>
+								<th style="width: 150px;">state</th>
+								<th style="width: 150px;">city</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="car : ${cars}">
+								<td th:text="${car.mark}"></td>
+								<td th:text="${car.model}"></td>
+								<td th:text="${car.price}"></td>
+								<td th:text="${car.state}"></td>
+								<td th:text="${car.city}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 		</div>
 	</body>
 </html>
