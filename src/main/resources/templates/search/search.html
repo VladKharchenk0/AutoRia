@@ -32,9 +32,9 @@
 
 		<div th:if="${cars}">
 			<div th:switch="${cars}">
-				<h2 th:case="null">No users yet!</h2>
+				<h2 th:case="null">No cars found</h2>
 				<div th:case="*">
-					<h2>List of users</h2>
+					<h2>List of cars</h2>
 					<table>
 						<thead>
 							<tr>
@@ -47,11 +47,12 @@
 						</thead>
 						<tbody>
 							<tr th:each="car : ${cars}">
-								<td th:text="${car.mark}"></td>
+								<td th:text="${car.mark}" ></td>
 								<td th:text="${car.model}"></td>
 								<td th:text="${car.price}"></td>
 								<td th:text="${car.state}"></td>
 								<td th:text="${car.city}"></td>
+								<td><a th:href="@{|https://auto.ria.com${car.linkToView}|}">Info</a></td>
 							</tr>
 						</tbody>
 					</table>

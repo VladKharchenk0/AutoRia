@@ -9,4 +9,5 @@ class Car {
     private int price;
     private String state;
     private String city;
+    private String linkToView;
 }

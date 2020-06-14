@@ -71,6 +71,7 @@ class SearchHelper {
         car.setPrice(searchNode.get("USD").intValue());
         car.setCity(searchNode.get("stateData").get("name").textValue());
         car.setState(searchNode.get("stateData").get("regionName").textValue());
+        car.setLinkToView(searchNode.get("linkToView").textValue());
 
         return car;
     }
