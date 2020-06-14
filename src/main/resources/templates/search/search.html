@@ -8,7 +8,7 @@
 	<body>
 		<div th:replace="menubar.html"></div>
 		<div>
-			<form method="post" action="/index/search" th:object="${search}" >
+			<form method="post" action="/index/search" th:object="${search}">
 				<select name="carBody">
 					<option value="" disabled selected hidden>Select car body</option>
 					<option th:each="carBodyOpt : ${T(com.gmail.kharchenko55.vlad.model.car.CarBody).values()}"
@@ -25,8 +25,8 @@
 					<option th:each="bmwOpt : ${T(com.gmail.kharchenko55.vlad.model.car.models.BmwModels).values()}"
 					        th:value="${bmwOpt.id}" th:text="${bmwOpt.name}"></option>
 				</select>
-				<button type="submit">Search
-				</button>
+				<button type="submit">Search</button>
+
 			</form>
 		</div>
 
@@ -56,6 +56,6 @@
 						</tbody>
 					</table>
 				</div>
-		</div>
+			</div>
 	</body>
 </html>

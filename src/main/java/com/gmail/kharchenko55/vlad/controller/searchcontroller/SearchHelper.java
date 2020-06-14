@@ -1,15 +1,21 @@
-package com.gmail.kharchenko55.vlad.model.car;
+package com.gmail.kharchenko55.vlad.controller.searchcontroller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.kharchenko55.vlad.common.Util;
+import com.gmail.kharchenko55.vlad.model.car.Car;
+import com.gmail.kharchenko55.vlad.model.search.SearchHistory;
+import com.gmail.kharchenko55.vlad.service.search.SearchHistoryImpl;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -19,10 +25,13 @@ import java.util.List;
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public @Data
-class SearchParser {
+class SearchHelper {
 
     private String[] ids;
     private OkHttpClient client = new OkHttpClient();
+
+    @Autowired
+    private SearchHistoryImpl searchHistory;
 
     public List<Integer> getIds(String response) throws IOException {
         List<Integer> ids = new ArrayList<>();
@@ -64,5 +73,17 @@ class SearchParser {
         car.setState(searchNode.get("stateData").get("regionName").textValue());
 
         return car;
+    }
+
+    public void saveParameters( int carBody, int carBrand, int carModel){
+        SearchHistory search = new SearchHistory();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        search.setEmail(((UserDetails)principal).getUsername());
+        search.setCarBody(carBody);
+        search.setCarBrand(carBrand);
+        search.setCarModel(carModel);
+
+        searchHistory.save(search);
+
     }
 }

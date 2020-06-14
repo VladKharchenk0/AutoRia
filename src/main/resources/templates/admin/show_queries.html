@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>List of Users</title>
+		<link href="/css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div th:replace="menubar.html"></div>
+		<div th:switch="${history}">
+			<h2 th:case="null">No queries yet!</h2>
+			<div th:case="*">
+				<h2>List of queries</h2>
+				<table>
+					<thead>
+						<tr>
+							<th style="width: 150px;">Email</th>
+							<th style="width: 150px;">Car body</th>
+							<th style="width: 150px;">Car Brand</th>
+							<th style="width: 150px;">Car Model</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="searchHistory : ${history}">
+							<td th:text="${searchHistory.email}"></td>
+							<td th:text="${searchHistory.carBody}"></td>
+							<td th:text="${searchHistory.carBrand}"></td>
+							<td th:text="${searchHistory.carModel}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

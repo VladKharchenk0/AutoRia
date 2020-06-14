@@ -2,6 +2,7 @@ package com.gmail.kharchenko55.vlad.controller.userscontroller;
 
 
 import com.gmail.kharchenko55.vlad.model.user.User;
+import com.gmail.kharchenko55.vlad.service.search.SearchHistoryImpl;
 import com.gmail.kharchenko55.vlad.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("users")
 public class UserController {
     private final UserService userService;
+    private final SearchHistoryImpl historyService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, SearchHistoryImpl historyService) {
         this.userService = userService;
+        this.historyService = historyService;
     }
 
     @GetMapping("/show-users")
@@ -36,5 +39,13 @@ public class UserController {
         model.addAttribute(user);
 
         return "admin/status_changed";
+    }
+
+    @GetMapping("/show-queries")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String listOfQueries(Model model) {
+        model.addAttribute("history", historyService.getAllHistory());
+
+        return "admin/show_queries";
     }
 }

@@ -1,7 +1,6 @@
 package com.gmail.kharchenko55.vlad.controller.searchcontroller;
 
 import com.gmail.kharchenko55.vlad.common.Util;
-import com.gmail.kharchenko55.vlad.model.car.SearchParser;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -23,22 +22,23 @@ import java.util.List;
 public class SearchController {
 
     @Autowired
-    private SearchParser search;
+    private SearchHelper search;
 
     private OkHttpClient client = new OkHttpClient();
 
     @GetMapping
     public String main(Model model) {
-        model.addAttribute("search", new SearchParser());
+        model.addAttribute("search", new SearchHelper());
         return "search/search";
     }
 
     @PostMapping
-    public ModelAndView postSearch(@RequestParam(name = "carBody") long carBody,
-                                   @RequestParam(name = "carBrand") long carBrand,
-                                   @RequestParam(name = "carModel") long carModel) throws IOException {
+    public ModelAndView postSearch(@RequestParam(name = "carBody") int carBody,
+                                   @RequestParam(name = "carBrand") int carBrand,
+                                   @RequestParam(name = "carModel") int carModel) throws IOException {
 
         String url = Util.getSearchUrl();
+        search.saveParameters(carBody, carBrand, carModel);
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
         builder.addQueryParameter("body_id", Long.toString(carBody));
