@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("users")
 public class UserController {
@@ -47,5 +49,14 @@ public class UserController {
         model.addAttribute("history", historyService.getAllHistory());
 
         return "admin/show_queries";
+    }
+
+    @GetMapping("/user-history")
+    public String userHistory(Principal principal, Model model) {
+        System.out.println(historyService.getAllByEmail("vlad@gmail.com").toString());
+        model.addAttribute("history", historyService.getAllByEmail(principal.getName()));
+        model.addAttribute("email", principal.getName());
+
+        return "search/user_history";
     }
 }

@@ -27,7 +27,9 @@ public class SearchHistoryImpl implements SearchHistoryService {
     }
 
     @Override
-    public SearchHistory findByEmail(String email) {
-        return historyRepository.findByEmail(email).orElse(null);
+    public List<SearchHistory> getAllByEmail(String email) {
+        List<SearchHistory> history = new ArrayList<>(historyRepository.findAllByEmail(email));
+        history.forEach(System.out::println);
+        return history;
     }
 }

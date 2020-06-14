@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface SearchHistoryService {
     List<SearchHistory> getAllHistory();
-
-    SearchHistory findByEmail(String email);
-
+    List<SearchHistory> getAllByEmail(String email);
     SearchHistory save(SearchHistory searchHistory);
 }
