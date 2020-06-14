@@ -53,7 +53,6 @@ public class UserController {
 
     @GetMapping("/user-history")
     public String userHistory(Principal principal, Model model) {
-        System.out.println(historyService.getAllByEmail("vlad@gmail.com").toString());
         model.addAttribute("history", historyService.getAllByEmail(principal.getName()));
         model.addAttribute("email", principal.getName());
 

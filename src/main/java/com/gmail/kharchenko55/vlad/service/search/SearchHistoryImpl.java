@@ -28,8 +28,6 @@ public class SearchHistoryImpl implements SearchHistoryService {
 
     @Override
     public List<SearchHistory> getAllByEmail(String email) {
-        List<SearchHistory> history = new ArrayList<>(historyRepository.findAllByEmail(email));
-        history.forEach(System.out::println);
-        return history;
+        return new ArrayList<>(historyRepository.findAllByEmail(email));
     }
 }

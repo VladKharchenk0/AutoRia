@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link href="/css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div th:replace="menubar.html"></div>
+		<div class="container">
+			<h2>Success!</h2>
+			<p>The e-mail has been sent, please check your inbox.</p>
+			<p>
+				<a  th:href="@{/index}" class="button">Back to home page</a>
+			</p>
+		</div>
+	</body>
+</html>
