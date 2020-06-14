@@ -24,7 +24,7 @@
 						<tr th:each="user : ${users}">
 							<td th:text="${user.email}"></td>
 							<td th:text="${user.userRole}"></td>
-							<td th:text="${user.status}"></td>
+							<td th:text="${user.userStatus}"></td>
 							<td><a th:href="@{/users/activate/{id}(id=${user.id})}">Change Status</a></td>
 						</tr>
 					</tbody>

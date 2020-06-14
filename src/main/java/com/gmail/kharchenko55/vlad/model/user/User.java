@@ -1,61 +1,33 @@
 package com.gmail.kharchenko55.vlad.model.user;
 
 import com.gmail.kharchenko55.vlad.common.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
 @Component
-public class User extends BaseEntity {
-    private String email;
-    private String password;
-    private UserRole userRole;
-    private UserStatus userStatus;
-
-    public User() {
-    }
-
+public @Data
+class User extends BaseEntity {
     @Email
     @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Column(name = "user_role")
-    @Enumerated(EnumType.STRING)
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
-
-    @Column(name = "user_status")
-    @Enumerated(EnumType.STRING)
-    public UserStatus getStatus() {
-        return userStatus;
-    }
-
-    public void setStatus(UserStatus status) {
-        this.userStatus = status;
-    }
+    private String email;
 
     @NotEmpty
     @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
+    private String password;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
+    @Column(name = "user_status")
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus;
 }

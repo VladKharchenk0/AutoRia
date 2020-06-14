@@ -31,10 +31,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(Integer id) {
         User user = userRepository.findById(id).orElse(null);
-        if (user.getStatus().equals(UserStatus.ACTIVE)) {
-            user.setStatus(UserStatus.NOT_ACTIVE);
+        if (user.getUserStatus().equals(UserStatus.ACTIVE)) {
+            user.setUserStatus(UserStatus.NOT_ACTIVE);
         } else {
-            user.setStatus(UserStatus.ACTIVE);
+            user.setUserStatus(UserStatus.ACTIVE);
         }
         userRepository.save(user);
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setUserRole(UserRole.ROLE_USER);
-        user.setStatus(UserStatus.NOT_ACTIVE);
+        user.setUserStatus(UserStatus.NOT_ACTIVE);
 
         return userRepository.save(user);
     }

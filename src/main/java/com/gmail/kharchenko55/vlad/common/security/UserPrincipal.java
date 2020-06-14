@@ -43,7 +43,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.user.getStatus() == UserStatus.ACTIVE;
+        return this.user.getUserStatus() == UserStatus.ACTIVE;
     }
 
     @Override
