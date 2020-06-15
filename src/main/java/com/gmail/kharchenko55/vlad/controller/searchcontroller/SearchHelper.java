@@ -29,6 +29,7 @@ class SearchHelper {
 
     private String[] ids;
     private OkHttpClient client = new OkHttpClient();
+    private int submissionPeriod = 3;//last 3 day
 
     @Autowired
     private SearchHistoryImpl searchHistory;
@@ -63,6 +64,28 @@ class SearchHelper {
         return cars;
     }
 
+    public List<Car> getCarsByPeriod(int carBody, int carBrand, int carModel) throws IOException {
+        String url = Util.getSearchUrl();
+        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+
+        builder.addQueryParameter("body_id", Long.toString(carBody));
+        builder.addQueryParameter("marka_id", Long.toString(carBrand));
+        builder.addQueryParameter("model_id", Long.toString(carModel));
+        builder.addQueryParameter("top", String.valueOf(submissionPeriod));
+        builder.addQueryParameter("countpage", String.valueOf(100));
+
+        Request request = new Request.Builder()
+                .url(builder.build())
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String json = response.body().string();
+
+        List<Integer> ids = getIds(json);
+
+        return getCars(ids);
+    }
+
     private Car getCarFromJson(String json) throws JsonProcessingException {
         Car car = new Car();
         JsonNode searchNode = new ObjectMapper().readTree(json);
@@ -85,6 +108,5 @@ class SearchHelper {
         search.setCarModel(carModel);
 
         searchHistory.save(search);
-
     }
 }

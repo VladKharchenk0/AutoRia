@@ -5,25 +5,39 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
 	<body>
-		<p th:text="${name}">
+		<p  th:text="'Добрый день, '+ ${email}">
 			Hello, Peter Static!
 		</p>
-		<p th:if="${name.length() > 10}">
-			Wow! You've got a long name (more than 10 chars)!
-		</p>
 		<p>
-			You have been successfully subscribed to the <b>Fake newsletter</b> on
-			<span th:text="${#dates.format(subscriptionDate)}">28-12-2012</span>
+			За последние 3 дня по вашим запросам
+			появились такие новые обьявления:
 		</p>
-		<p>Your hobbies are:</p>
-		<ul th:remove="all-but-first">
-			<li th:each="hobby : ${hobbies}" th:text="${hobby}">Reading</li>
-			<li>Writing</li>
-			<li>Bowling</li>
-		</ul>
+		<div th:switch="${cars}">
+			<h2 th:case="null">Нет новых обьявлений</h2>
+			<div th:case="*">
+				<table>
+					<thead>
+						<tr>
+							<th style="width: 150px;">Марка</th>
+							<th style="width: 150px;">Модель</th>
+							<th style="width: 150px;">Цена</th>
+							<th style="width: 150px;">Подробная информация</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="car : ${cars}">
+							<td th:text="${car.mark}"></td>
+							<td th:text="${car.model}"></td>
+							<td th:text="${car.price}"></td>
+							<td><a th:href="@{|https://auto.ria.com${car.linkToView}|}">Перейти</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<p>
-			Regards, <br />
-			<em>The Thymeleaf Team</em>
+			С уважением, <br />
+			<em>Помошник RIA</em>
 		</p>
 	</body>
 </html>

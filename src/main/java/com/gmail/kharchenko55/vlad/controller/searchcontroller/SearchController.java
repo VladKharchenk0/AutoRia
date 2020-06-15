@@ -38,7 +38,7 @@ public class SearchController {
                                    @RequestParam(name = "carModel") int carModel) throws IOException {
 
         String url = Util.getSearchUrl();
-        //search.saveParameters(carBody, carBrand, carModel);
+        search.saveParameters(carBody, carBrand, carModel);
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
         builder.addQueryParameter("body_id", Long.toString(carBody));
