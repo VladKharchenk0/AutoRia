@@ -1,11 +1,11 @@
 package com.gmail.kharchenko55.vlad.controller.searchcontroller;
 
-import com.gmail.kharchenko55.vlad.common.Util;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +19,16 @@ import java.util.List;
 
 @Controller
 @RequestMapping({"/index/search"})
+
 public class SearchController {
 
     @Autowired
     private SearchHelper search;
 
     private OkHttpClient client = new OkHttpClient();
+
+    @Value( "${base.search.url}" )
+    private String searchUrl;
 
     @GetMapping
     public String main(Model model) {
@@ -36,11 +40,9 @@ public class SearchController {
     public ModelAndView postSearch(@RequestParam(name = "carBody") int carBody,
                                    @RequestParam(name = "carBrand") int carBrand,
                                    @RequestParam(name = "carModel") int carModel) throws IOException {
-
-        String url = Util.getSearchUrl();
         search.saveParameters(carBody, carBrand, carModel);
 
-        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+        HttpUrl.Builder builder = HttpUrl.parse(searchUrl).newBuilder();
         builder.addQueryParameter("body_id", Long.toString(carBody));
         builder.addQueryParameter("marka_id", Long.toString(carBrand));
         builder.addQueryParameter("model_id", Long.toString(carModel));

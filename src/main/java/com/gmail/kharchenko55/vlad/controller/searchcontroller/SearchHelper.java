@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.kharchenko55.vlad.common.Util;
 import com.gmail.kharchenko55.vlad.model.car.Car;
 import com.gmail.kharchenko55.vlad.model.search.SearchHistory;
 import com.gmail.kharchenko55.vlad.service.search.SearchHistoryImpl;
@@ -14,6 +13,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -34,6 +34,12 @@ class SearchHelper {
     @Autowired
     private SearchHistoryImpl searchHistory;
 
+    @Value( "${base.info.url}" )
+    private String infoUrl;
+
+    @Value( "${base.search.url}" )
+    private String searchUrl;
+
     public List<Integer> getIds(String response) throws IOException {
         List<Integer> ids = new ArrayList<>();
         JsonNode searchNode = new ObjectMapper().readTree(response).get("result").get("search_result")
@@ -46,11 +52,10 @@ class SearchHelper {
     }
 
     public List<Car> getCars(List<Integer> ids) throws IOException {
-        String url = Util.getInfoUrl();
 
         List<Car> cars = new ArrayList<>();
         for (int id : ids) {
-            HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+            HttpUrl.Builder builder = HttpUrl.parse(infoUrl).newBuilder();
             builder.addQueryParameter("auto_id", String.valueOf(id));
             Request request = new Request.Builder()
                     .url(builder.build())
@@ -65,8 +70,7 @@ class SearchHelper {
     }
 
     public List<Car> getCarsByPeriod(int carBody, int carBrand, int carModel) throws IOException {
-        String url = Util.getSearchUrl();
-        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+        HttpUrl.Builder builder = HttpUrl.parse(searchUrl).newBuilder();
 
         builder.addQueryParameter("body_id", Long.toString(carBody));
         builder.addQueryParameter("marka_id", Long.toString(carBrand));
