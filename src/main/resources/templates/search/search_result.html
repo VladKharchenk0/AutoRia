@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link href="/css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div th:replace="menubar.html"></div>
+		<div th:if="${cars}">
+			<div th:switch="${cars}">
+				<h2 th:case="null">No cars found</h2>
+				<div th:case="*">
+					<h2>List of cars</h2>
+					<table>
+						<thead>
+							<tr>
+								<th style="width: 150px;">mark</th>
+								<th style="width: 150px;">model</th>
+								<th style="width: 150px;">price</th>
+								<th style="width: 150px;">state</th>
+								<th style="width: 150px;">city</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="car : ${cars}">
+								<td th:text="${car.mark}" ></td>
+								<td th:text="${car.model}"></td>
+								<td th:text="${car.price}"></td>
+								<td th:text="${car.state}"></td>
+								<td th:text="${car.city}"></td>
+								<td><a th:href="@{|https://auto.ria.com${car.linkToView}|}">Info</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+</html>
