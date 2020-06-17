@@ -32,25 +32,14 @@ public class SearchController {
         return "search/search";
     }
 
-//    @RequestMapping(value = "/s")
-//    public  String getCarModel(@RequestBody Json json) throws IOException {
-//        System.out.println(json);
-//
-//        int carBody =json.getCarBody();
-//
-//
-//        System.out.println(carBody);
-//        return "lsmfd";
-//    }
-
     @PostMapping
     @ResponseBody
-    public String postSearch(@RequestBody Json data) throws IOException {
+    public String postSearch(@RequestBody JsonCar data) throws IOException {
 
         int carBody = data.getCarBody();
         int carBrand = data.getCarBrand();
         int carModel = data.getCarModel();
-        // search.saveParameters(carBody, carBrand, carModel);
+        search.saveParameters(carBody, carBrand, carModel);
 
         HttpUrl.Builder builder = HttpUrl.parse(searchUrl).newBuilder();
         builder.addQueryParameter("body_id", Long.toString(carBody));
@@ -62,17 +51,12 @@ public class SearchController {
                 .url(builder.build())
                 .build();
 
-        System.out.println(request);
-
         Response response = client.newCall(request).execute();
         String json = response.body().string();
         System.out.println(json);
 
         List<Integer> ids = search.getIds(json);
 
-        String response1 = new Gson().toJson(search.getCars(ids));
-        System.out.println("fd;s..................................  "+response1);
-
-        return response1;
+        return new Gson().toJson(search.getCars(ids));
     }
 }
