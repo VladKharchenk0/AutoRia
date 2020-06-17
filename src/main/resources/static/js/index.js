@@ -57,9 +57,6 @@ const bodyClose = `
     const finish = head + bodyOpen + body + bodyClose + tableClose
 
     return finish
-
-
-
 }
 // API
 
