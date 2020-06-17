@@ -46,7 +46,6 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String listOfQueries(Model model) {
         model.addAttribute("history", historyService.getAllHistory());
-
         return "admin/show_queries";
     }
 
