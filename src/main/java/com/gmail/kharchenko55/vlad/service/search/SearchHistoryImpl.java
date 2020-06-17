@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class SearchHistoryImpl implements SearchHistoryService {
 
+    private final SearchHistoryRepository historyRepository;
+
     @Autowired
-    private SearchHistoryRepository historyRepository;
+    public SearchHistoryImpl(SearchHistoryRepository historyRepository) {
+        this.historyRepository = historyRepository;
+    }
 
     @Override
     public SearchHistory save(SearchHistory searchHistory) {

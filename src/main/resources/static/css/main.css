@@ -21,3 +21,19 @@ footer p {
 .error-message:first-letter {
     text-transform: capitalize;
 }
+
+.car_brand_list, .car_model_list {
+    display: none;
+    width: 177px;
+    max-height: 100px;
+    overflow: auto;
+    list-style: none;
+}
+
+.show {
+    display: block;
+}
+
+.brand_list_el {
+    cursor: pointer;
+}

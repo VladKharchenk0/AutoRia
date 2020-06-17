@@ -14,13 +14,14 @@ import com.squareup.okhttp.Response;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -34,11 +35,22 @@ class SearchHelper {
     @Autowired
     private SearchHistoryImpl searchHistory;
 
-    @Value( "${base.info.url}" )
+
+    @Value("${base.info.url}")
     private String infoUrl;
 
-    @Value( "${base.search.url}" )
+    @Value("${base.search.url}")
     private String searchUrl;
+
+    @Value("${get.car.body.url}")
+    private String carBodyUrl;
+
+    @Value("${get.car.mark.url}")
+    private String carMarkUrl;
+
+    @Value("${get.car.model.url}")
+    private String carModelUrl;
+
 
     public List<Integer> getIds(String response) throws IOException {
         List<Integer> ids = new ArrayList<>();
@@ -52,7 +64,6 @@ class SearchHelper {
     }
 
     public List<Car> getCars(List<Integer> ids) throws IOException {
-
         List<Car> cars = new ArrayList<>();
         for (int id : ids) {
             HttpUrl.Builder builder = HttpUrl.parse(infoUrl).newBuilder();
@@ -103,14 +114,38 @@ class SearchHelper {
         return car;
     }
 
-    public void saveParameters( int carBody, int carBrand, int carModel){
+    public void saveParameters(int carBody, int carBrand, int carModel) {
         SearchHistory search = new SearchHistory();
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        search.setEmail(((UserDetails)principal).getUsername());
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        search.setEmail(((UserDetails) principal).getUsername());
         search.setCarBody(carBody);
         search.setCarBrand(carBrand);
         search.setCarModel(carModel);
 
         searchHistory.save(search);
+    }
+
+    public String getCarBody() throws IOException {
+        return getRequest(getCarBodyUrl());
+    }
+
+    public String getCarMark() throws IOException {
+        return getRequest(getCarMarkUrl());
+    }
+
+    public String getCarModel(int carMark) throws IOException {
+        String getModelsUrl = String.format(getCarModelUrl(), carMark);
+        return getRequest(getModelsUrl);
+    }
+
+
+    private String getRequest(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }

@@ -12,5 +12,5 @@ public interface UserService {
 
     User update(Integer id);
 
-    User register(UserRegistrationDto registration);
+   User register(UserRegistrationDto registration);
 }

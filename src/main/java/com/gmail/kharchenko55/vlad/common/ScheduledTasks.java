@@ -10,11 +10,15 @@ import javax.mail.MessagingException;
 @Component
 public class ScheduledTasks {
 
-    @Autowired
-    private EmailController emailController;
+    private final EmailController emailController;
 
-    @Scheduled(fixedRate =259200000)
+    @Autowired
+    public ScheduledTasks(EmailController emailController) {
+        this.emailController = emailController;
+    }
+
+    @Scheduled(fixedRate = 259200000)
     public void sendEmail() throws MessagingException {
-       emailController.sendSimpleMail();
+        emailController.sendSimpleMail();
     }
 }

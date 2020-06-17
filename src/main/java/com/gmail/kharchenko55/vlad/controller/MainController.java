@@ -1,6 +1,6 @@
 package com.gmail.kharchenko55.vlad.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class MainController {
 
     @GetMapping("/log_out")
     public String logOut() {
-        SecurityContextHolder.getContext().setAuthentication(null);
+       // SecurityContextHolder.getContext().setAuthentication(null);
         return "login";
     }
 

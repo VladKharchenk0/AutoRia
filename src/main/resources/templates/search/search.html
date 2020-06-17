@@ -4,59 +4,34 @@
 		<meta charset="UTF-8">
 		<title>Title</title>
 		<link href="/css/index.css" rel="stylesheet"/>
+		<link href="/css/main.css" rel="stylesheet"/>
+
 	</head>
 	<body>
 		<div th:replace="menubar.html"></div>
 		<div>
-			<form method="post" action="/index/search" th:object="${search}">
-				<select name="carBody">
-					<option value="" disabled selected hidden>Select car body</option>
-					<option th:each="carBodyOpt : ${T(com.gmail.kharchenko55.vlad.model.car.CarBody).values()}"
-					        th:value="${carBodyOpt.id}" th:text="${carBodyOpt.name}"></option>
-				</select>
-				<select name="carBrand">
-					<option value="" disabled selected hidden>Select car brand</option>
-					<option th:each="carBrandOpt : ${T(com.gmail.kharchenko55.vlad.model.car.CarBrand).values()}"
-					        th:value="${carBrandOpt.id}" th:text="${carBrandOpt.name}"></option>
-				</select>
+			<form id='carForm' action="/index/search">
+				<select name="carBody" id="carBody" >
+					<option value="" disabled selected hidden >Select car body</option>
 
-				<select name="carModel">
-					<option value="" disabled selected hidden>Select bmv</option>
-					<option th:each="bmwOpt : ${T(com.gmail.kharchenko55.vlad.model.car.models.BmwModels).values()}"
-					        th:value="${bmwOpt.id}" th:text="${bmwOpt.name}"></option>
 				</select>
-				<button type="submit">Search</button>
+				<input data-brand="ok" type="search" name="carBrand" id="carBrand" placeholder="select car brand" />
+				<ul class="car_brand_list"></ul>
+
+					<input data-model="ok" type="search" name="carModel" id="carModel" placeholder="select car model" />
+					<ul class="car_model_list"></ul>
+
+				<button type="submit" >Search</button>
 
 			</form>
-		</div>
 
-		<div th:if="${cars}">
-			<div th:switch="${cars}">
-				<h2 th:case="null">No cars found</h2>
-				<div th:case="*">
-					<h2>List of cars</h2>
-					<table>
-						<thead>
-							<tr>
-								<th style="width: 150px;">mark</th>
-								<th style="width: 150px;">model</th>
-								<th style="width: 150px;">price</th>
-								<th style="width: 150px;">state</th>
-								<th style="width: 150px;">city</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="car : ${cars}">
-								<td th:text="${car.mark}" ></td>
-								<td th:text="${car.model}"></td>
-								<td th:text="${car.price}"></td>
-								<td th:text="${car.state}"></td>
-								<td th:text="${car.city}"></td>
-								<td><a th:href="@{|https://auto.ria.com${car.linkToView}|}">Info</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+		</div>
+	<div id="results">
+
+	</div>
+
+
+
+		<script  th:src="@{/js/index.js}" type="module"></script>
 	</body>
 </html>

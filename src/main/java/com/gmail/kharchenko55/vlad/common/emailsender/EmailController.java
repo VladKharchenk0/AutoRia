@@ -3,11 +3,11 @@ package com.gmail.kharchenko55.vlad.common.emailsender;
 import com.gmail.kharchenko55.vlad.model.search.SearchHistory;
 import com.gmail.kharchenko55.vlad.service.search.SearchHistoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,8 @@ public class EmailController {
     private EmailService emailService;
 
     @RequestMapping(method = GET)
-    public String sendSimpleMail() throws MessagingException, IOException {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String sendSimpleMail() throws MessagingException {
         Map<String, List<SearchHistory>> receiversForNewCars = new HashMap<>();
         List<SearchHistory> histories = historyService.getAllHistory();
 

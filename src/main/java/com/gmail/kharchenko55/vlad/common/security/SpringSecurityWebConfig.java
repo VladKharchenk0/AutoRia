@@ -18,11 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private final UsersDetailsService UsersDetailsService;
-
-    public SpringSecurityWebConfig(UsersDetailsService usersDetailsService) {
-        UsersDetailsService = usersDetailsService;
-    }
+    private UsersDetailsService UsersDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,7 +29,7 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
                         "/registration**",
                         "/js/**",
                         "/css/**",
-                        "/static/css/**").permitAll()
+                        "/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -44,9 +40,11 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessUrl("/login")
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
+
+
     }
 
     @Bean

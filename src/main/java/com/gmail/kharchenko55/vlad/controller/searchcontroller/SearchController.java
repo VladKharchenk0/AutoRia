@@ -1,5 +1,6 @@
 package com.gmail.kharchenko55.vlad.controller.searchcontroller;
 
+import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -8,18 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping({"/index/search"})
-
 public class SearchController {
 
     @Autowired
@@ -27,7 +23,7 @@ public class SearchController {
 
     private OkHttpClient client = new OkHttpClient();
 
-    @Value( "${base.search.url}" )
+    @Value("${base.search.url}")
     private String searchUrl;
 
     @GetMapping
@@ -36,11 +32,25 @@ public class SearchController {
         return "search/search";
     }
 
+//    @RequestMapping(value = "/s")
+//    public  String getCarModel(@RequestBody Json json) throws IOException {
+//        System.out.println(json);
+//
+//        int carBody =json.getCarBody();
+//
+//
+//        System.out.println(carBody);
+//        return "lsmfd";
+//    }
+
     @PostMapping
-    public ModelAndView postSearch(@RequestParam(name = "carBody") int carBody,
-                                   @RequestParam(name = "carBrand") int carBrand,
-                                   @RequestParam(name = "carModel") int carModel) throws IOException {
-        search.saveParameters(carBody, carBrand, carModel);
+    @ResponseBody
+    public String postSearch(@RequestBody Json data) throws IOException {
+
+        int carBody = data.getCarBody();
+        int carBrand = data.getCarBrand();
+        int carModel = data.getCarModel();
+        // search.saveParameters(carBody, carBrand, carModel);
 
         HttpUrl.Builder builder = HttpUrl.parse(searchUrl).newBuilder();
         builder.addQueryParameter("body_id", Long.toString(carBody));
@@ -52,13 +62,17 @@ public class SearchController {
                 .url(builder.build())
                 .build();
 
+        System.out.println(request);
+
         Response response = client.newCall(request).execute();
         String json = response.body().string();
+        System.out.println(json);
 
         List<Integer> ids = search.getIds(json);
-        ModelAndView result = new ModelAndView("search/search.html");
-        result.addObject("cars", search.getCars(ids));
 
-        return result;
+        String response1 = new Gson().toJson(search.getCars(ids));
+        System.out.println("fd;s..................................  "+response1);
+
+        return response1;
     }
 }
