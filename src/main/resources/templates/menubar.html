@@ -1,7 +1,9 @@
-<div class="topnav" id="myTopnav" xmlns:th="http://www.thymeleaf.org">
+<div class="topnav" id="myTopnav" xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
 	<a th:href="@{/index}">Home</a>
 	<a th:href="@{/index/search}">Search Car</a>
-	<div class="dropdown">
+	<div class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
 		<button class="dropbtn">Admin
 			<i class="fa fa-caret-down"></i>
 		</button>
@@ -11,7 +13,7 @@
 		</div>
 	</div>
 	<a th:href="@{/users/user-history}">My history</a>
-	<a th:href="@{/sendEmail}">Send email</a>
+	<a th:href="@{/sendEmail}" sec:authorize="hasRole('ROLE_ADMIN')">Send email</a>
 	<div class="dropdown" style="float: right;">
 		<button class="dropbtn">Settings
 			<i class="fa fa-caret-down"></i>
