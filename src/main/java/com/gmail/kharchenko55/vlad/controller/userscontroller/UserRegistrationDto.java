@@ -47,13 +47,4 @@ public class UserRegistrationDto {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Boolean getTerms() {
-        return terms;
-    }
-
-    public void setTerms(Boolean terms) {
-        this.terms = terms;
-    }
-
 }
