@@ -29,7 +29,9 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
                         "/registration**",
                         "/js/**",
                         "/css/**",
-                        "/static/**").permitAll()
+                        "/static/**",
+                        "/login",
+                        "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
