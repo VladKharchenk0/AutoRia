@@ -1,5 +1,18 @@
+body {
+    box-sizing: border-box;
+}
+
+*, *:after, *:before {
+    box-sizing: inherit;
+}
+
 h1 {
     color: #78ab46;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }
 
 footer {
@@ -23,17 +36,88 @@ footer p {
 }
 
 .car_brand_list, .car_model_list {
-    display: none;
-    width: 177px;
-    max-height: 100px;
+    opacity: 0;
+    max-height: 0;
     overflow: auto;
     list-style: none;
+    padding-top: 5px;
+    border: 1px solid #333333;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 11;
+    background: white;
+    padding-left: 10px;
+    transition: all 200ms ease-in-out;
 }
 
 .show {
-    display: block;
+    max-height: 200px;
+    opacity: 1;
+    transition: all 200ms ease-in-out;
 }
 
 .brand_list_el {
     cursor: pointer;
 }
+
+.form-wrapper {
+    padding-top: 50px;
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+
+}
+
+.carForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carForm select, .carForm input {
+    margin-bottom: 20px;
+    width: 70%;
+    min-height: 40px;
+    border-radius: 7px;
+    padding-left: 5px;
+    border: 1px solid #333333;
+    outline: none;
+
+}
+
+.carForm select {
+    background: none;
+}
+
+.carForm button {
+    width: 40%;
+    min-height: 30px;
+    background: none;
+    border: 1px solid #333333;
+    border-radius: 7px;
+    outline: none;
+}
+
+.carForm button:hover {
+    background: #4CAF50;
+}
+
+.input-wrapper {
+
+    width: 70%;
+    position: relative;
+    margin-bottom: 20px;
+
+}
+
+.carForm input {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+

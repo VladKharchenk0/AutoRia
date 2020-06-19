@@ -4,22 +4,28 @@
 		<meta charset="UTF-8">
 		<title>Title</title>
 		<link href="/css/index.css" rel="stylesheet"/>
-		<link href="/css/search.css" rel="stylesheet"/>
+		<link href="/css/main.css" rel="stylesheet"/>
 
 	</head>
 	<body>
 		<div th:replace="menubar.html"></div>
-		<div>
-			<form id='carForm' action="/index/search">
+		<div class="form-wrapper">
+			<form id='carForm' action="/index/search" class="carForm">
 				<select name="carBody" id="carBody" >
 					<option value="" disabled selected hidden >Select car body</option>
 
 				</select>
-				<input data-brand="ok" type="search" name="carBrand" id="carBrand" placeholder="select car brand" />
-				<ul class="car_brand_list"></ul>
 
-					<input data-model="ok" type="search" name="carModel" id="carModel" placeholder="select car model" />
+				<div class="input-wrapper">
+				<input autocomplete="off" data-brand="ok" type="search" name="carBrand" id="carBrand" placeholder="select car brand" />
+				<ul class="car_brand_list"></ul>
+				</div>
+
+				<div class="input-wrapper">
+					<input autocomplete="off" data-model="ok" type="search" name="carModel" id="carModel" placeholder="select car model" />
 					<ul class="car_model_list"></ul>
+				</div>
+
 
 				<button type="submit" >Search</button>
 

@@ -20,6 +20,8 @@ const createListMarkup = (array) => array.map(el => `<li data-brand="ok" data-va
 const createListModelMarkup = (array) => array.map(el => `<li data-model="ok" data-value=${el.value} class="brand_list_el">${el.name}</li>`).join('')
 const filteredValues = (array, filter) => array.filter(el => el.name.toLowerCase().includes(filter.toLowerCase()))
 const resultMarkup  = array => {
+
+    if (!array.length) return `<p>No resulst</p>`
 const head = `<div > 
         <div>
     <div >
@@ -43,7 +45,7 @@ const head = `<div >
         <td>${car.price}</td>
         <td>${car.state}</td>
         <td>${car.city}</td>
-        <td><a href="https://auto.ria.com${car.linkToView}">Info</a></td></tr>`).join('')
+        <td><a href="https://auto.ria.com${car.linkToView}" target="_blank" rel="noopener">Info</a></td></tr>`).join('')
 
 const bodyClose = `
     </tbody>`
