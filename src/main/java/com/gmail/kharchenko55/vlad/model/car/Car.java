@@ -10,4 +10,5 @@ class Car {
     private String state;
     private String city;
     private String linkToView;
+    private String photoUrl;
 }

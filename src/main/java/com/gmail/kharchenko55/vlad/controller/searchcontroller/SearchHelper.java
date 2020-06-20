@@ -99,6 +99,7 @@ class SearchHelper {
         car.setCity(searchNode.get("stateData").get("name").textValue());
         car.setState(searchNode.get("stateData").get("regionName").textValue());
         car.setLinkToView(searchNode.get("linkToView").textValue());
+        car.setPhotoUrl(searchNode.get("photoData").get("seoLinkF").textValue());
 
         return car;
     }
@@ -113,5 +114,4 @@ class SearchHelper {
 
         searchHistory.save(search);
     }
-
 }

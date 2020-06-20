@@ -8,7 +8,6 @@ const refs = {
     results: document.querySelector('#results')
 }
 
-
 let allCarBrands;
 let brandModels;
 let isBrandChoosen = false;
@@ -19,46 +18,22 @@ const createMarkup = (array) => array.map(el => `<option value=${el.value}>${el.
 const createListMarkup = (array) => array.map(el => `<li data-brand="ok" data-value=${el.value} class="brand_list_el">${el.name}</li>`).join('')
 const createListModelMarkup = (array) => array.map(el => `<li data-model="ok" data-value=${el.value} class="brand_list_el">${el.name}</li>`).join('')
 const filteredValues = (array, filter) => array.filter(el => el.name.toLowerCase().includes(filter.toLowerCase()))
-const resultMarkup  = array => {
+const resultMarkup = array => {
 
     if (!array.length) return `<p>No resulst</p>`
-const head = `<div > 
-        <div>
-    <div >
-        <h2>List of cars</h2>
-    <table>
-    <thead>
-    <tr>
-    <th style="width: 150px;">mark</th>
-        <th style="width: 150px;">model</th>
-        <th style="width: 150px;">price</th>
-        <th style="width: 150px;">state</th>
-        <th style="width: 150px;">city</th>
-        </tr>
-        </thead>`
 
-    const bodyOpen = ` <tbody>
-        `
-
- const body = array.map(car=> `<tr><td>${car.mark}</td>
-        <td>${car.model}</td>
-        <td>${car.price}</td>
-        <td>${car.state}</td>
-        <td>${car.city}</td>
-        <td><a href="https://auto.ria.com${car.linkToView}" target="_blank" rel="noopener">Info</a></td></tr>`).join('')
-
-const bodyClose = `
-    </tbody>`
-
-    const tableClose = `</table>
+    const body = array.map(car => `<div class="car-card">
+<div class="img-container"><a href="https://auto.ria.com${car.linkToView}" target="_blank" rel="noopener"><img src='${car.photoUrl}' alt="car photo"/></a></div>
+<div class="car-info__container">
+<p><a href="https://auto.ria.com${car.linkToView}" target="_blank" rel="noopener">${car.mark} ${car.model}</a></p>
+        <p>Price: ${car.price}$</p>
+        <p>City: ${car.city}</p>
+        
     </div>
-    </div>
+  </div>`).join('')
 
-    </div>`
 
-    const finish = head + bodyOpen + body + bodyClose + tableClose
-
-    return finish
+    return body
 }
 // API
 
@@ -170,13 +145,12 @@ const onSubmit = (e) => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(finalObj)
-    }).then(resp=>resp.json()).then(data=>{
+    }).then(resp => resp.json()).then(data => {
         const markup = resultMarkup(data)
 
-        refs.results.innerHTML=markup
+        refs.results.innerHTML = markup
     })
 }
-
 
 refs.brandSelect.addEventListener('input', renderCarBrandList)
 refs.modelSelect.addEventListener('input', renderModelList)

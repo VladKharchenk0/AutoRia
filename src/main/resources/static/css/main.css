@@ -65,6 +65,7 @@ footer p {
 .form-wrapper {
     padding-top: 50px;
     width: 30%;
+    min-width: 250px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -77,6 +78,7 @@ footer p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 .carForm select, .carForm input {
@@ -108,7 +110,6 @@ footer p {
 }
 
 .input-wrapper {
-
     width: 70%;
     position: relative;
     margin-bottom: 20px;
@@ -120,4 +121,63 @@ footer p {
     margin-bottom: 0;
 }
 
+.results-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+}
 
+.car-card {
+    width: 24%;
+    /*border: 1px solid #333333;*/
+    border-radius: 7px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 150ms ease-in-out;
+    -webkit-box-shadow: 2px 1px 9px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 1px 9px -2px rgba(0,0,0,0.75);
+    box-shadow: 2px 1px 9px -2px rgba(0,0,0,0.75);
+}
+
+
+.car-card:hover {
+    transform: scale(1.05);
+    transition: all 150ms ease-in-out;
+
+}
+
+.img-container img{
+max-width: 100%;
+    height: auto;
+    border-radius: 7px;
+}
+
+.car-info__container {
+    padding-left: 8px;
+}
+
+@media (max-width: 768px) {
+    .car-card {
+        width: 32%;
+    }
+    .form-wrapper {
+        width: 60%;
+    }
+
+    .carForm select, .input-wrapper {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .car-card {
+        width: 100%;
+    }
+
+    .form-wrapper {
+        width: 90%;
+    }
+}

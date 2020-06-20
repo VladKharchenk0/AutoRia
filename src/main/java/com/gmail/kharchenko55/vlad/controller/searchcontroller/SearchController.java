@@ -53,8 +53,6 @@ public class SearchController {
 
         Response response = client.newCall(request).execute();
         String json = response.body().string();
-        System.out.println(json);
-
         List<Integer> ids = search.getIds(json);
 
         return new Gson().toJson(search.getCars(ids));

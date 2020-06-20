@@ -5,6 +5,7 @@
 		<title>Title</title>
 		<link href="/css/index.css" rel="stylesheet"/>
 		<link href="/css/main.css" rel="stylesheet"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	</head>
 	<body>
@@ -17,22 +18,21 @@
 				</select>
 
 				<div class="input-wrapper">
-				<input autocomplete="off" data-brand="ok" type="search" name="carBrand" id="carBrand" placeholder="select car brand" />
+				<input autocomplete="off" data-brand="ok" type="search" name="carBrand"
+				       id="carBrand" placeholder="Select car brand" />
 				<ul class="car_brand_list"></ul>
 				</div>
 
 				<div class="input-wrapper">
-					<input autocomplete="off" data-model="ok" type="search" name="carModel" id="carModel" placeholder="select car model" />
+					<input autocomplete="off" data-model="ok" type="search" name="carModel"
+					       id="carModel" placeholder="Select car model" />
 					<ul class="car_model_list"></ul>
 				</div>
-
-
 				<button type="submit" >Search</button>
-
 			</form>
 
 		</div>
-	<div id="results">
+	<div id="results" class="results-wrapper">
 
 	</div>
 
